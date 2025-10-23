@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You Will Become a Rich Man</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Set up Inter Font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Money Rainfall GIF Effect */
+            background-image: url('https://media.giphy.com/media/l4pTfx2qLsHtS9Rk4/giphy.gif'); /* Falling dollar signs GIF */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+        /* Custom overlay to ensure text is readable over the GIF */
+        #overlay {
+            /* Reduced opacity so the GIF is clearly visible beneath */
+            background-color: rgba(0, 0, 0, 0.4); 
+        }
+    </style>
+</head>
+<body class="h-screen w-full flex items-center justify-center p-4">
+
+    <!-- Background Overlay -->
+    <div id="overlay" class="absolute inset-0 z-0"></div>
+
+    <!-- Main Card Container -->
+    <div class="relative z-10 bg-white bg-opacity-95 p-8 md:p-12 rounded-2xl shadow-2xl max-w-lg w-full text-center transform hover:scale-[1.02] transition duration-300 backdrop-blur-sm border-4 border-yellow-400">
+        
+        <!-- Title -->
+        <h1 class="text-4xl md:text-5xl font-extrabold text-green-700 mb-6 tracking-tight">
+            You Will Become a Rich Man
+        </h1>
+
+        <!-- Income Display Area -->
+        <div class="mb-8">
+            <p class="text-xl md:text-2xl font-semibold text-gray-700 mb-2">Annual Income:</p>
+            <p id="annual-income" class="text-5xl md:text-7xl font-black text-green-500 transition duration-500 ease-out transform scale-100">
+                $0
+            </p>
+        </div>
+
+        <!-- Button -->
+        <button id="income-button" 
+                class="w-full py-4 px-6 bg-yellow-500 text-gray-900 font-bold text-lg rounded-xl shadow-lg 
+                       hover:bg-yellow-400 transition duration-200 transform hover:-translate-y-1 active:translate-y-0
+                       focus:outline-none focus:ring-4 focus:ring-yellow-300 focus:ring-opacity-75">
+            Click to Increase Your Annual Income
+        </button>
+
+        <p class="mt-4 text-sm text-gray-500">Each click adds $10,000!</p>
+
+    </div>
+
+    <script type="text/javascript">
+        // Initialize the income variable
+        let currentIncome = 0;
+        const incomeIncrease = 10000;
+        const incomeDisplay = document.getElementById('annual-income');
+        const clickButton = document.getElementById('income-button');
+
+        /**
+         * Formats a number into a dollar currency string (e.g., 100000 -> $100,000)
+         * @param {number} amount - The numeric income value.
+         * @returns {string} The formatted currency string.
+         */
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+            }).format(amount);
+        }
+
+        /**
+         * Handles the button click event to increase the income.
+         */
+        function increaseIncome() {
+            // 1. Update the income value
+            currentIncome += incomeIncrease;
+
+            // 2. Update the display text
+            incomeDisplay.textContent = formatCurrency(currentIncome);
+
+            // 3. Add a temporary visual effect to the income display
+            incomeDisplay.classList.add('scale-110', 'text-green-400');
+            
+            // Remove the effect after a short delay
+            setTimeout(() => {
+                incomeDisplay.classList.remove('scale-110', 'text-green-400');
+            }, 150);
+        }
+
+        // Set the initial income display when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            incomeDisplay.textContent = formatCurrency(currentIncome);
+        });
+
+        // Attach the click event listener to the button
+        clickButton.addEventListener('click', increaseIncome);
+
+    </script>
+</body>
+</html>
